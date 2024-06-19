@@ -37,4 +37,20 @@ jobs:
           git config --global user.email 'vaibhavwasnik02@gmail.com'
           git add values.yaml
           git commit -m "Update values.yaml"
-          git push
+       
+          
+          
+      - name: Pull latest changes from remote
+        run: |
+          git pull --rebase origin main
+          git push origin main
+        working-directory: nodeapp
+        continue-on-error: true
+
+      
+      - name: Push changes
+        run: |
+          git pull --rebase origin main
+          git push origin main
+        working-directory: nodeapp
+        if: failure()
